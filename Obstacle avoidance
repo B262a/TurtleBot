@@ -1,3 +1,34 @@
+#include <iostream>
+#include <ros ros.h=""> 
+#include <geometry_msgs twist.h=""> 
+#include <tf tf.h="">
+#include <geometry_msgs posestamped.h=""> 
+#include <geometry_msgs posewithcovariancestamped.h=""> 
+#include <tf transform_datatypes.h=""> 
+#include <linearmath btmatrix3x3.h=""> 
+#include <stdio.h>
+#include <math.h> 
+#include <vector> 
+#include <fstream> 
+#include <sstream> 
+#include <sensor_msgs laserscan.h="">
+
+// Representation (RVIZ) #include <visualization_msgs marker.h="">
+
+/* 
+* Is to control the robot 
+* It has memory to store the robot pose, and 
+* The methods are to control the robot by publishing data 
+*/ 
+class Turtlebot { public: Turtlebot();
+
+/* 
+* This function should command the robot to reach the goal 
+* It should compute the commands to the robot by knowing the current position 
+* and the goal position. * This function will return true only if the goal has been reached. 
+*/ 
+bool command(double goal_x, double goal_y);
+
 
 
 
