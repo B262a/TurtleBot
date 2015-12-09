@@ -1,0 +1,129 @@
+ #include <opencv2/core/core.hpp>
+   #include <opencv2/highgui/highgui.hpp>
+   #include <opencv2/imgproc/imgproc.hpp>
+   #include <iostream>
+   #include <opencv2/imgproc/imgproc.hpp>
+
+    using namespace cv;
+    using namespace std;
+
+    int main(int argc, char* argv[])
+    {
+    VideoCapture cap;
+
+    cap.open ("C:\\Users\\martin\\Desktop\\ThermalVideo.asf");
+
+        if (!cap.isOpened())  // if not success, exit program
+    {
+        cout << "Cannot open the video cam" << endl;
+        return -1;
+    }
+
+   double dWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH); //get the width of frames of the video
+   double dHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
+
+    cout << "Frame size : " << dWidth << " x " << dHeight << endl; // Display the height and width of the incoming picture
+
+    namedWindow("ThermalLiveFeed",CV_WINDOW_AUTOSIZE); //create a window called "ThermalLiveFeed"
+    namedWindow("ThresholdLiveFeed",CV_WINDOW_AUTOSIZE); //create a window called "ThresholdLiveFeed"
+
+    while (1)
+    {
+
+        Mat frame;
+
+        double thresh = 100;
+        double maxVal = 255;
+
+        bool bSuccess = cap.read(frame); // read a new frame from video
+
+         if (!bSuccess) //if not success, break loop
+        {
+             cout << "Cannot read a frame from video stream" << endl;
+             break;
+        }
+
+        Mat grey;
+        Mat dst;
+
+
+        cv::cvtColor(frame, grey, CV_BGR2GRAY); //Convert the 3-channel video stream to 1-channel gray
+
+        flip(frame, frame, 1);
+
+        imshow("ThermalLiveFeed", frame); //show the frame in "ThermalLiveFeed" window
+
+        threshold(grey, dst, thresh, maxVal, THRESH_BINARY); // Threshold the 1-channel picture
+
+        imshow("ThresholdLiveFeed", dst); // Show the dst thresholded version of grey
+
+
+            std::vector<std::vector<cv::Point> > contours;
+            Mat imageClone; // Make an array called imageClone
+            imageClone = dst.clone(); // Clone data from dst to imageClone
+            findContours(imageClone, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE); // Use opencv command to find contours
+
+            Mat drawImg(dst.size(), CV_8UC3, Scalar(0,0,0));
+
+        for(size_t idx = 0; idx < contours.size(); idx++){
+            int area = contourArea(contours[idx]);
+
+
+        if(area > 5000){             // If the area of the blob is above 500 pixels run this
+
+            drawContours(drawImg, contours, idx, Scalar(0,0,255)); // Draw line around contour
+            Moments mu = moments(contours[idx], false);  // Create a fixed point in the middle of the contour
+            Point2f mc = Point2f(mu.m10/mu.m00, mu.m01/mu.m00);
+            cout << "Coordinates: " << mc.x << ", " << mc.y << endl; // Display the x and y coordinates of the image moment
+            circle(drawImg, mc, 5,Scalar(0,255,0)); // Draw a green circle around the point
+
+
+
+
+
+            namedWindow("findContours", WINDOW_AUTOSIZE); // Create window called findContours
+
+            imshow("findContours", drawImg); // Display contours in the window findContours
+
+            if(100 > mc.x){
+
+
+                cout << "He is hitting the border on the left x-axis: " << mc.x << endl;
+
+                //640x480
+            }
+
+            if (mc.x > 540){
+
+
+               cout << "He is hitting the border on the right x-axis: " << mc.x << endl;
+
+            }
+
+            if ( 100 > mc.y){
+
+                cout << "He is hitting the border on the upper y-axis: " << mc.y << endl;
+
+            }
+
+            if (mc.y > 380){
+
+                cout << "He is hitting the border on the lower y-axis: " << mc.y << endl;
+
+            }
+
+    }
+    }
+
+
+        if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+       {
+            cout << "esc key is pressed by user" << endl;
+            break;
+       }
+
+
+}
+    return 0;
+}
+
