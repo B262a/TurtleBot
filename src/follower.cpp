@@ -56,17 +56,14 @@ return velocity;
 
 int main(int argc, char* argv[])
 {
-
-  ros::init(argc, argv, "Publisher");
-
-  ros::NodeHandle node;
-
-  ros::Publisher pub = node.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/navi", 10);
-
-  ros::Rate loop_rate(10);
-
     //Initiatialize the main ROS connection
-    ros::init(argc, argv, "Publisher"); 
+    ros::init(argc, argv, "Publisher");
+
+    ros::NodeHandle node;
+
+    ros::Publisher pub = node.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/navi", 10);
+
+    ros::Rate loop_rate(10);
 
     //Initialize the variable "cap" holding the input from the thermal camera
     VideoCapture cap;
