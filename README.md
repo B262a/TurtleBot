@@ -10,8 +10,7 @@ Below are instructions on how to run the program:
 
 2. Clone this git repository: 
   $ git clone https://github.com/B262a/thermalfollower.git
-  
-A new directory named "thermalfollower" will be created, containing all the necessary files
+  A new directory named "thermalfollower" will be created, containing all the necessary files
 
 3. Navigate to the root of the ROS workspace: 
   $ cd ~/catkin_ws 
