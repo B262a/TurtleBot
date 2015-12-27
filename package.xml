@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>thermalfollower</name>
+  <version>0.0.0</version>
+  <description>The thermalfollower package</description>
+
+  <maintainer email="isircu13@student.aau.dk">isircu</maintainer>
+  <maintainer email="other@student.aau.dk">isircu</maintainer>
+
+  <license>BSD</license>
+
+  <url type="Repository">https://github.com/B262a/TurtleBot.git</url>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+
+</package>
