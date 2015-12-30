@@ -23,6 +23,10 @@ Below are instructions on how to run the program:
 
   $ catkin_make
   
+6. Launch the main nodes for turtlebot operation:
+
+  $ roslaunch turtlebot_bringup minimal.launch
+  
 5. Run the program: 
 
   $ rosrun thermalfollower follower
