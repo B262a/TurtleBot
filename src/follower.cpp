@@ -60,7 +60,8 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "Publisher");
 
     ros::NodeHandle node;
-
+    //Create the a Publisher to transmit movement data to the turtlebot at a rate of 10Hz
+    //Higher rates may result in the commands not being executed, as they would be passed too fast
     ros::Publisher pub = node.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/navi", 10);
 
     ros::Rate loop_rate(10);
