@@ -5,7 +5,7 @@ This code is used in the group's P1 project as well as for the Robot Programming
 Below are instructions on how to run the program: 
 *The computer must have ROS(at least indigo) and OpenCV installed before continuing
 
-1. Navigate to a ROS worspace primary src folder, by example: 
+1. Navigate to a ROS workspace primary src folder, by example: 
 
   $ cd ~/catkin_ws/src
 
